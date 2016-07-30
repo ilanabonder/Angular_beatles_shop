@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="col-md-6 col-md-offset-3">
+        <div data-ng-repeat="product in cart">
+            <img class="cover-vinyl" ng-src="{{product.picture}}"/>
+            <div class="cover-title">
+                {{product.name}}
+                <em> {{product.price | currency}} </em>
+            <input type="number" min="1" max="5" data-ng-model="product.quantity"/>
+                <button data-ng-click="removeItem(this.$index)">Remove this item</button>
+            </div>
+        </div>
+        <div>
+            <p>total</p>
+            <p>{{sumPrices()| currency}}</p>
+            <p>{{numItems()}} items</p>
+            <button>Proceed to checkout</button>
+        </div>
+    </div>
+</div>

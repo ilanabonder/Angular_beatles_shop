@@ -1,0 +1,13 @@
+<div class="container">
+<div data-ng-repeat="product in products" class="col-md-3 col-sm-6 col-xs-12 product-div">
+    <div ng-click="displayPopUp(this)">
+    <img class="cover-vinyl" ng-src="{{product.picture}}"/>
+    <div class="cover-title">
+        {{product.name}}
+        <em> {{product.price | currency}} </em>
+    </div>
+    </div>
+</div>
+</div>
+<product-popup ng-show="selectedProduct"></product-popup>
+

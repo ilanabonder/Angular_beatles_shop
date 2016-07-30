@@ -1,0 +1,77 @@
+
+
+<div class="overlay" data-ng-click="selectedProduct = null"></div>
+<div class="product-popup">
+    <div class="product-description">
+    <h3>{{selectedProduct.name}}
+    <em class="pull-right"> {{selectedProduct.price | currency}} </em></h3>
+    <br>
+    <div data-ng-controller="cartController">
+        <button class="addtocart" ng-click="addToCart(selectedProduct)">Add to Cart</button>
+    </div>
+    <br>
+    <img class="cover-vinyl" ng-src="{{selectedProduct.picture}}"/>
+    <br>
+    <br>
+    <div data-ng-controller="PanelController as panel">
+    <ul class="nav nav-pills">
+        <li data-ng-class="{active: panel.isSelected(1)}">
+            <a href data-ng-click="panel.selectTab(1)">Description</a>
+        </li>
+        <li data-ng-class="{active: panel.isSelected(2)}">
+            <a href data-ng-click="panel.selectTab(2)">Tracks</a>
+        </li>
+        <li data-ng-class="{active: panel.isSelected(3)}">
+            <a href data-ng-click="panel.selectTab(3)">Reviews</a>
+        </li>
+    </ul>
+    <div class ="panel" data-ng-show="panel.isSelected(1)">
+        <br>
+        <blockquote>
+        <p>{{selectedProduct.description}}</p>
+        </blockquote>
+    </div>
+    <div class ="panel" data-ng-show="panel.isSelected(2)">
+        <br>
+            <blockquote>
+                <ol>
+                    <li data-ng-repeat="track in selectedProduct.tracks">
+                    {{track.song}}
+                    </li>
+                </ol>
+            </blockquote>
+<!--        <p>{{tracks.songs}}</p>-->
+    </div>
+    <div class ="panel" data-ng-show="panel.isSelected(3)" data-ng-controller="ReviewController as reviewCtrl">
+        <blockquote data-ng-repeat="review in selectedProduct.reviews">
+            <b>Stars: {{review.stars}}</b>
+            {{review.body}}
+            <cite>- {{review.author}}</cite>
+        </blockquote>
+
+        <form id="reviewForm" name="reviewForm"
+              data-ng-submit="reviewForm.$valid && reviewCtrl.addReview(selectedProduct)" novalidate>
+            <blockquote>
+                <p><b>Stars: {{reviewCtrl.review.stars}}</b>
+                    {{reviewCtrl.review.body}}
+                    <cite>- {{reviewCtrl.review.author}}</cite></p>
+                </blockquote>
+                <blockquote>
+                <h4><b>Submit a Review</b></h4>
+           <select data-ng-model="reviewCtrl.review.stars" placeholder="stars" required>
+              <option value="" disabled selected>Rating Stars</option>
+            <option value="1">1 star</option>
+            <option value="2">2 stars</option>
+            <option value="3">3 stars</option>
+            <option value="4">4 stars</option>
+            <option value="5">5 stars</option>
+        </select><br><br>
+            <textarea id="text-input"data-ng-model="reviewCtrl.review.body" placeholder="Write your review for this record!" required></textarea><br>
+            <input id="author-input" name="author" ng-model="reviewCtrl.review.author" type="email" placeholder="E-mail" required/><br><br>
+            <input id="submit-btn" type="submit" value="Submit"/>
+        </blockquote>
+        </form>
+    </div>
+    </div>
+</div>
+</div>
